@@ -22,13 +22,17 @@ This script creates `.venv`, upgrades pip, and installs dependencies from:
 The smoke demo exercises the OCR + dataset stitching workflow from the notebook using
 local images.
 
+Activate the virtual environment:
+
+`source .venv/bin/activate`
+
 Generate sample images:
 
-`python3 scripts/create_demo_images.py --output-dir demo_images`
+`python scripts/create_demo_images.py --output-dir demo_images`
 
 Run the demo:
 
-`python3 scripts/demo_run.py --input-dir demo_images --output-csv demo_output/final_training_dataset.csv`
+`python scripts/demo_run.py --input-dir demo_images --output-csv demo_output/final_training_dataset.csv`
 
 Expected output:
 
