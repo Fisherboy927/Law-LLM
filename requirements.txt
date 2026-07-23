@@ -1,5 +1,4 @@
 pandas
 openai
 tqdm
-paddlepaddle>=3.2.1
 paddleocr[doc-parser]>=3.6.0

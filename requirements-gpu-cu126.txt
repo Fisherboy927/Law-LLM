@@ -1,0 +1,10 @@
+# GPU PaddlePaddle wheel for CUDA 12.6-compatible environments.
+# Install this before requirements-dev.txt when you want PaddleOCR-VL on GPU:
+#   python -m pip install -r requirements-gpu-cu126.txt
+#   python -m pip install -r requirements-dev.txt
+#
+# If your CUDA/runtime differs, use PaddlePaddle's official selector and update
+# the package index URL accordingly.
+--index-url https://www.paddlepaddle.org.cn/packages/stable/cu126/
+--extra-index-url https://pypi.org/simple
+paddlepaddle-gpu==3.2.1

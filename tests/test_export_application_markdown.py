@@ -71,11 +71,15 @@ def test_export_markdown_files_passes_paddle_options(tmp_path, monkeypatch) -> N
         output_dir,
         expected_count=1,
         preserve_paddle_markdown=True,
+        device="gpu:0",
+        require_gpu=True,
         paddle_output_dir=raw_output_dir,
     )
 
     assert [path.name for path in written] == ["Answer_01.md"]
     assert calls[0][1]["preserve_markdown"] is True
+    assert calls[0][1]["device"] == "gpu:0"
+    assert calls[0][1]["require_gpu"] is True
     assert calls[0][1]["paddle_output_dir"] == raw_output_dir
 
 
