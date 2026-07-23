@@ -57,6 +57,18 @@ python scripts/export_application_markdown.py \
   --min-content-length 50
 ```
 
+To keep PaddleOCR-VL's Markdown structure and save the raw PaddleOCR JSON/Markdown `Result` outputs next to the stitched answer Markdown, run:
+
+```bash
+python scripts/export_application_markdown.py \
+  --input-dir Images \
+  --output-dir outputs/application_answers_markdown \
+  --expected-count 50 \
+  --min-content-length 50 \
+  --preserve-paddle-markdown \
+  --paddle-output-dir outputs/paddleocr_vl_raw
+```
+
 Expected result:
 
 - `outputs/application_answers_markdown/Answer_01.md`
@@ -103,6 +115,11 @@ Useful environment variables:
 - `OPENAI_API_KEY` — required for JSONL augmentation.
 - `OPENAI_MODEL` — optional; defaults to `gpt-4o-mini`.
 - `PADDLEOCR_PIPELINE_VERSION` — optional; defaults to `v1.6`.
+- `PADDLEOCR_DEVICE` — optional PaddleOCR-VL device, for example `cpu` or `gpu:0`.
+- `PADDLEOCR_ENGINE` — optional PaddleOCR-VL engine, for example `paddle`, `paddle_static`, `paddle_dynamic`, or `transformers`.
+- `PADDLEOCR_LAYOUT_DETECTION_MODEL_DIR` / `PADDLEOCR_VL_REC_MODEL_DIR` — optional local model directories for offline or pinned-model inference.
+- `PADDLEOCR_VL_REC_BACKEND`, `PADDLEOCR_VL_REC_SERVER_URL`, `PADDLEOCR_VL_REC_API_MODEL_NAME`, `PADDLEOCR_VL_REC_MAX_CONCURRENCY` — optional remote VLM-recognition backend settings.
+- `PADDLEOCR_USE_DOC_ORIENTATION_CLASSIFY`, `PADDLEOCR_USE_DOC_UNWARPING`, `PADDLEOCR_USE_LAYOUT_DETECTION`, `PADDLEOCR_USE_CHART_RECOGNITION`, `PADDLEOCR_USE_SEAL_RECOGNITION`, `PADDLEOCR_USE_OCR_FOR_IMAGE_BLOCK`, `PADDLEOCR_FORMAT_BLOCK_CONTENT` — optional boolean PaddleOCR-VL feature switches (`true`/`false`).
 
 ## Verify outputs
 

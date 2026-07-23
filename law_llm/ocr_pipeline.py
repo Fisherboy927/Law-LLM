@@ -12,6 +12,27 @@ import pandas as pd
 SUPPORTED_IMAGE_EXTENSIONS = {".png", ".jpg", ".jpeg"}
 _PAGE_SUFFIX_RE = re.compile(r"(?:[_-](?:page|p)[_-]?\d+)$", re.IGNORECASE)
 _PADDLEOCR_PIPELINE: Any | None = None
+_PADDLEOCR_ENV_OPTIONS = {
+    "PADDLEOCR_DEVICE": "device",
+    "PADDLEOCR_ENGINE": "engine",
+    "PADDLEOCR_LAYOUT_DETECTION_MODEL_NAME": "layout_detection_model_name",
+    "PADDLEOCR_LAYOUT_DETECTION_MODEL_DIR": "layout_detection_model_dir",
+    "PADDLEOCR_VL_REC_MODEL_NAME": "vl_rec_model_name",
+    "PADDLEOCR_VL_REC_MODEL_DIR": "vl_rec_model_dir",
+    "PADDLEOCR_VL_REC_BACKEND": "vl_rec_backend",
+    "PADDLEOCR_VL_REC_SERVER_URL": "vl_rec_server_url",
+    "PADDLEOCR_VL_REC_API_MODEL_NAME": "vl_rec_api_model_name",
+    "PADDLEOCR_VL_REC_API_KEY": "vl_rec_api_key",
+}
+_PADDLEOCR_BOOL_ENV_OPTIONS = {
+    "PADDLEOCR_USE_DOC_ORIENTATION_CLASSIFY": "use_doc_orientation_classify",
+    "PADDLEOCR_USE_DOC_UNWARPING": "use_doc_unwarping",
+    "PADDLEOCR_USE_LAYOUT_DETECTION": "use_layout_detection",
+    "PADDLEOCR_USE_CHART_RECOGNITION": "use_chart_recognition",
+    "PADDLEOCR_USE_SEAL_RECOGNITION": "use_seal_recognition",
+    "PADDLEOCR_USE_OCR_FOR_IMAGE_BLOCK": "use_ocr_for_image_block",
+    "PADDLEOCR_FORMAT_BLOCK_CONTENT": "format_block_content",
+}
 
 
 @dataclass(frozen=True)
@@ -36,6 +57,48 @@ def _group_name_from_filename(filename: str) -> str:
 
 def normalize_ocr_text(text: str) -> str:
     return " ".join(text.split())
+
+
+def normalize_ocr_markdown(text: str) -> str:
+    lines = [" ".join(line.split()) for line in text.splitlines()]
+    normalized_lines: list[str] = []
+    previous_blank = False
+    for line in lines:
+        is_blank = not line
+        if is_blank and previous_blank:
+            continue
+        normalized_lines.append(line)
+        previous_blank = is_blank
+    return "\n".join(normalized_lines).strip()
+
+
+def _env_bool(name: str) -> bool | None:
+    value = os.environ.get(name)
+    if value is None or value == "":
+        return None
+    if value.lower() in {"1", "true", "yes", "y", "on"}:
+        return True
+    if value.lower() in {"0", "false", "no", "n", "off"}:
+        return False
+    raise ValueError(f"Environment variable {name} must be a boolean value, got {value!r}")
+
+
+def _paddleocr_pipeline_kwargs() -> dict[str, Any]:
+    kwargs: dict[str, Any] = {
+        "pipeline_version": os.environ.get("PADDLEOCR_PIPELINE_VERSION", "v1.6")
+    }
+    for env_name, option_name in _PADDLEOCR_ENV_OPTIONS.items():
+        value = os.environ.get(env_name)
+        if value:
+            kwargs[option_name] = value
+    for env_name, option_name in _PADDLEOCR_BOOL_ENV_OPTIONS.items():
+        value = _env_bool(env_name)
+        if value is not None:
+            kwargs[option_name] = value
+    concurrency = os.environ.get("PADDLEOCR_VL_REC_MAX_CONCURRENCY")
+    if concurrency:
+        kwargs["vl_rec_max_concurrency"] = int(concurrency)
+    return kwargs
 
 
 def iter_image_paths(folder_path: str | os.PathLike[str]) -> list[Path]:
@@ -66,7 +129,7 @@ def _create_paddleocr_pipeline() -> Any:
             "CUDA-specific PaddlePaddle package from Paddle's install guide."
         ) from exc
 
-    return PaddleOCRVL(pipeline_version=os.environ.get("PADDLEOCR_PIPELINE_VERSION", "v1.6"))
+    return PaddleOCRVL(**_paddleocr_pipeline_kwargs())
 
 
 def _get_paddleocr_pipeline() -> Any:
@@ -163,9 +226,27 @@ def _extract_text_from_paddle_result(output: Any) -> str:
     return "\n".join(part.strip() for part in text_parts if part.strip())
 
 
-def ocr_image(path: str | os.PathLike[str]) -> str:
+def _save_paddle_result(output: Any, output_dir: str | os.PathLike[str]) -> None:
+    save_path = Path(output_dir)
+    save_path.mkdir(parents=True, exist_ok=True)
+    for result in _as_sequence(output):
+        save_json = getattr(result, "save_to_json", None)
+        if callable(save_json):
+            save_json(save_path=save_path)
+        save_markdown = getattr(result, "save_to_markdown", None)
+        if callable(save_markdown):
+            save_markdown(save_path=save_path)
+
+
+def ocr_image(
+    path: str | os.PathLike[str],
+    *,
+    paddle_output_dir: str | os.PathLike[str] | None = None,
+) -> str:
     pipeline = _get_paddleocr_pipeline()
     output = pipeline.predict(str(path))
+    if paddle_output_dir is not None:
+        _save_paddle_result(output, paddle_output_dir)
     return _extract_text_from_paddle_result(output)
 
 
@@ -174,13 +255,21 @@ def extract_and_stitch_data(
     *,
     min_content_length: int = 1,
     skip_bad_images: bool = True,
+    preserve_markdown: bool = False,
+    paddle_output_dir: str | os.PathLike[str] | None = None,
 ) -> list[OCRRecord]:
     grouped_text: dict[str, list[str]] = {}
+
+    normalize = normalize_ocr_markdown if preserve_markdown else normalize_ocr_text
+    page_separator = "\n\n---\n\n" if preserve_markdown else " "
 
     for entry in iter_image_paths(folder_path):
         group_name = _group_name_from_filename(entry.name)
         try:
-            clean_text = normalize_ocr_text(ocr_image(entry))
+            raw_output_dir = Path(paddle_output_dir) / group_name if paddle_output_dir else None
+            clean_text = normalize(
+                ocr_image(entry, paddle_output_dir=raw_output_dir)
+            )
         except Exception as exc:
             if not skip_bad_images:
                 raise
@@ -190,7 +279,7 @@ def extract_and_stitch_data(
 
     stitched: list[OCRRecord] = []
     for group_name, text_parts in grouped_text.items():
-        full_text = " ".join(part for part in text_parts if part).strip()
+        full_text = page_separator.join(part for part in text_parts if part).strip()
         if len(full_text) >= min_content_length:
             stitched.append(OCRRecord(id=f"original_{group_name}", content=full_text))
     return stitched
