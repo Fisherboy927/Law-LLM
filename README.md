@@ -79,27 +79,28 @@ python scripts/export_application_markdown.py \
   --min-content-length 50
 ```
 
-The script auto-selects `gpu:0` when a CUDA-enabled PaddlePaddle install is available; otherwise it uses CPU. To force GPU and fail fast if the environment is still CPU-only:
+The script auto-selects `gpu:0` when a CUDA-enabled PaddlePaddle install is available; otherwise it uses CPU.
+
+For the normal GPU OCR run, use the one-command wrapper. It hard-codes the project defaults above and fails fast if the environment is still CPU-only:
 
 ```bash
-python scripts/export_application_markdown.py \
-  --input-dir Images \
-  --output-dir outputs/application_answers_markdown \
-  --expected-count 50 \
-  --min-content-length 50 \
-  --device gpu:0 \
-  --require-gpu
+bash scripts/run_gpu_ocr.sh
 ```
 
-You can also use the environment variable form:
+The wrapper uses `Images/`, writes to `outputs/application_answers_markdown/`, expects 50 answer groups, requires at least 50 OCR characters per stitched answer, and runs PaddleOCR-VL with `--device gpu:0 --require-gpu`.
+
+To choose a different PaddleOCR GPU device while keeping the same project defaults:
 
 ```bash
-PADDLEOCR_DEVICE=gpu:0 python scripts/export_application_markdown.py \
-  --input-dir Images \
-  --output-dir outputs/application_answers_markdown \
-  --expected-count 50 \
-  --min-content-length 50 \
-  --require-gpu
+PADDLEOCR_DEVICE=gpu:1 bash scripts/run_gpu_ocr.sh
+```
+
+Additional `export_application_markdown.py` flags can be appended to the wrapper command, for example:
+
+```bash
+bash scripts/run_gpu_ocr.sh \
+  --preserve-paddle-markdown \
+  --paddle-output-dir outputs/paddleocr_vl_raw
 ```
 
 Watch GPU usage in another terminal with:
