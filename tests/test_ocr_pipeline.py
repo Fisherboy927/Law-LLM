@@ -47,6 +47,44 @@ def test_extract_text_from_paddle_markdown_payload() -> None:
     assert ocr_pipeline._extract_text_from_paddle_result(output) == "# Heading\nBody"
 
 
+def test_paddleocr_pipeline_kwargs_reads_supported_environment(monkeypatch) -> None:
+    monkeypatch.setenv("PADDLEOCR_PIPELINE_VERSION", "v1.6")
+    monkeypatch.setenv("PADDLEOCR_DEVICE", "cpu")
+    monkeypatch.setenv("PADDLEOCR_ENGINE", "transformers")
+    monkeypatch.setenv("PADDLEOCR_VL_REC_MODEL_DIR", "/models/vl")
+    monkeypatch.setenv("PADDLEOCR_USE_DOC_UNWARPING", "true")
+    monkeypatch.setenv("PADDLEOCR_FORMAT_BLOCK_CONTENT", "false")
+    monkeypatch.setenv("PADDLEOCR_VL_REC_MAX_CONCURRENCY", "4")
+
+    assert ocr_pipeline._paddleocr_pipeline_kwargs() == {
+        "pipeline_version": "v1.6",
+        "device": "cpu",
+        "engine": "transformers",
+        "vl_rec_model_dir": "/models/vl",
+        "use_doc_unwarping": True,
+        "format_block_content": False,
+        "vl_rec_max_concurrency": 4,
+    }
+
+
+def test_save_paddle_result_uses_official_result_methods(tmp_path) -> None:
+    calls = []
+
+    class Result:
+        def save_to_json(self, save_path):
+            calls.append(("json", save_path))
+
+        def save_to_markdown(self, save_path):
+            calls.append(("markdown", save_path))
+
+    ocr_pipeline._save_paddle_result([Result()], tmp_path / "raw")
+
+    assert calls == [
+        ("json", tmp_path / "raw"),
+        ("markdown", tmp_path / "raw"),
+    ]
+
+
 def test_extract_and_stitch_data_groups_pages_in_order(tmp_path, monkeypatch) -> None:
     for name in ["Answer_01_page2.png", "Answer_01_page1.png", "Answer_02_page1.png"]:
         (tmp_path / name).write_text("x", encoding="utf-8")
@@ -60,7 +98,7 @@ def test_extract_and_stitch_data_groups_pages_in_order(tmp_path, monkeypatch) ->
     monkeypatch.setattr(
         ocr_pipeline,
         "ocr_image",
-        lambda path: text_by_name[path.name],
+        lambda path, **kwargs: text_by_name[path.name],
     )
 
     assert ocr_pipeline.extract_and_stitch_data(tmp_path) == [
@@ -69,11 +107,34 @@ def test_extract_and_stitch_data_groups_pages_in_order(tmp_path, monkeypatch) ->
     ]
 
 
+def test_extract_and_stitch_data_can_preserve_markdown_page_breaks(tmp_path, monkeypatch) -> None:
+    for name in ["Answer_01_page1.png", "Answer_01_page2.png"]:
+        (tmp_path / name).write_text("x", encoding="utf-8")
+
+    text_by_name = {
+        "Answer_01_page1.png": "# Heading\n\n first   page ",
+        "Answer_01_page2.png": "second\npage",
+    }
+
+    monkeypatch.setattr(
+        ocr_pipeline,
+        "ocr_image",
+        lambda path, **kwargs: text_by_name[path.name],
+    )
+
+    assert ocr_pipeline.extract_and_stitch_data(tmp_path, preserve_markdown=True) == [
+        OCRRecord(
+            id="original_Answer_01",
+            content="# Heading\n\nfirst page\n\n---\n\nsecond\npage",
+        )
+    ]
+
+
 def test_extract_and_stitch_data_can_skip_bad_images(tmp_path, monkeypatch) -> None:
     (tmp_path / "Answer_01_page1.png").write_text("x", encoding="utf-8")
     (tmp_path / "Answer_02_page1.png").write_text("x", encoding="utf-8")
 
-    def fake_ocr(path):
+    def fake_ocr(path, **kwargs):
         if path.name == "Answer_01_page1.png":
             raise RuntimeError("bad image")
         return "usable text"

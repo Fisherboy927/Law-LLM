@@ -55,6 +55,18 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Raise OCR errors instead of warning and skipping unreadable images.",
     )
+    parser.add_argument(
+        "--preserve-paddle-markdown",
+        action="store_true",
+        help="Preserve PaddleOCR-VL Markdown line breaks instead of flattening text.",
+    )
+    parser.add_argument(
+        "--paddle-output-dir",
+        help=(
+            "Optional directory for raw PaddleOCR-VL outputs saved with "
+            "Result.save_to_json() and Result.save_to_markdown()."
+        ),
+    )
     return parser.parse_args()
 
 
@@ -150,6 +162,8 @@ def export_markdown_files(
     expected_count: int = 50,
     min_content_length: int = 50,
     skip_bad_images: bool = True,
+    preserve_paddle_markdown: bool = False,
+    paddle_output_dir: str | Path | None = None,
 ) -> list[Path]:
     input_path = Path(input_dir)
     output_path = Path(output_dir)
@@ -157,6 +171,8 @@ def export_markdown_files(
         input_path,
         min_content_length=min_content_length,
         skip_bad_images=skip_bad_images,
+        preserve_markdown=preserve_paddle_markdown,
+        paddle_output_dir=paddle_output_dir,
     )
     records_by_answer = validate_records(records, expected_count)
     images_by_answer = source_images_by_answer(input_path)
@@ -188,12 +204,16 @@ def main() -> None:
         expected_count=args.expected_count,
         min_content_length=args.min_content_length,
         skip_bad_images=not args.fail_on_bad_images,
+        preserve_paddle_markdown=args.preserve_paddle_markdown,
+        paddle_output_dir=args.paddle_output_dir,
     )
 
     print(f"Input directory: {input_dir.resolve()}")
     print(f"Images processed: {image_count}")
     print(f"Markdown files written: {len(written)}")
     print(f"Output directory: {output_dir.resolve()}")
+    if args.paddle_output_dir:
+        print(f"Raw PaddleOCR-VL output directory: {Path(args.paddle_output_dir).resolve()}")
 
 
 if __name__ == "__main__":

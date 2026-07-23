@@ -52,6 +52,33 @@ def test_render_markdown_includes_title_sources_and_text(tmp_path) -> None:
     assert "OCR text" in markdown
 
 
+def test_export_markdown_files_passes_paddle_options(tmp_path, monkeypatch) -> None:
+    input_dir = tmp_path / "Images"
+    input_dir.mkdir()
+    (input_dir / "Answer_01_page1.png").write_text("x", encoding="utf-8")
+    output_dir = tmp_path / "markdown"
+    raw_output_dir = tmp_path / "raw_paddle"
+    calls = []
+
+    def fake_extract_and_stitch_data(*args, **kwargs):
+        calls.append((args, kwargs))
+        return [OCRRecord(id="original_Answer_01", content="one")]
+
+    monkeypatch.setattr(exporter, "extract_and_stitch_data", fake_extract_and_stitch_data)
+
+    written = exporter.export_markdown_files(
+        input_dir,
+        output_dir,
+        expected_count=1,
+        preserve_paddle_markdown=True,
+        paddle_output_dir=raw_output_dir,
+    )
+
+    assert [path.name for path in written] == ["Answer_01.md"]
+    assert calls[0][1]["preserve_markdown"] is True
+    assert calls[0][1]["paddle_output_dir"] == raw_output_dir
+
+
 def test_export_markdown_files_writes_expected_files(tmp_path, monkeypatch) -> None:
     input_dir = tmp_path / "Images"
     input_dir.mkdir()
