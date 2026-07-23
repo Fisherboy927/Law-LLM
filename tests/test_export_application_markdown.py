@@ -79,6 +79,23 @@ def test_export_markdown_files_passes_paddle_options(tmp_path, monkeypatch) -> N
     assert calls[0][1]["paddle_output_dir"] == raw_output_dir
 
 
+def test_export_markdown_files_explains_empty_ocr_results(tmp_path, monkeypatch) -> None:
+    input_dir = tmp_path / "Images"
+    input_dir.mkdir()
+    (input_dir / "Answer_01_page1.png").write_text("x", encoding="utf-8")
+    (input_dir / "Answer_02_page1.png").write_text("x", encoding="utf-8")
+
+    monkeypatch.setattr(exporter, "extract_and_stitch_data", lambda *args, **kwargs: [])
+
+    with pytest.raises(ValueError, match="No OCR records were extracted") as exc_info:
+        exporter.export_markdown_files(input_dir, tmp_path / "markdown", expected_count=2)
+
+    message = str(exc_info.value)
+    assert "2 image(s) across 2 source group(s)" in message
+    assert "--min-content-length=50" in message
+    assert "--fail-on-bad-images" in message
+
+
 def test_export_markdown_files_writes_expected_files(tmp_path, monkeypatch) -> None:
     input_dir = tmp_path / "Images"
     input_dir.mkdir()
