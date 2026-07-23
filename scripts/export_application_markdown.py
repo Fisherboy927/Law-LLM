@@ -153,13 +153,24 @@ def export_markdown_files(
 ) -> list[Path]:
     input_path = Path(input_dir)
     output_path = Path(output_dir)
+    images_by_answer = source_images_by_answer(input_path)
     records = extract_and_stitch_data(
         input_path,
         min_content_length=min_content_length,
         skip_bad_images=skip_bad_images,
     )
+    if not records:
+        image_count = sum(len(paths) for paths in images_by_answer.values())
+        group_count = len(images_by_answer)
+        raise ValueError(
+            "No OCR records were extracted from "
+            f"{image_count} image(s) across {group_count} source group(s) in {input_path}. "
+            "This usually means PaddleOCR failed for every image or every stitched result "
+            f"was shorter than --min-content-length={min_content_length}. "
+            "Re-run with --fail-on-bad-images to surface the first OCR error, or lower "
+            "--min-content-length for a smoke test."
+        )
     records_by_answer = validate_records(records, expected_count)
-    images_by_answer = source_images_by_answer(input_path)
 
     output_path.mkdir(parents=True, exist_ok=True)
     written: list[Path] = []
