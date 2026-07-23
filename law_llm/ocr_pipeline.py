@@ -11,9 +11,8 @@ import pandas as pd
 
 SUPPORTED_IMAGE_EXTENSIONS = {".png", ".jpg", ".jpeg"}
 _PAGE_SUFFIX_RE = re.compile(r"(?:[_-](?:page|p)[_-]?\d+)$", re.IGNORECASE)
-_PADDLEOCR_PIPELINE: Any | None = None
+_PADDLEOCR_PIPELINES: dict[tuple[tuple[str, str], ...], Any] = {}
 _PADDLEOCR_ENV_OPTIONS = {
-    "PADDLEOCR_DEVICE": "device",
     "PADDLEOCR_ENGINE": "engine",
     "PADDLEOCR_LAYOUT_DETECTION_MODEL_NAME": "layout_detection_model_name",
     "PADDLEOCR_LAYOUT_DETECTION_MODEL_DIR": "layout_detection_model_dir",
@@ -83,9 +82,104 @@ def _env_bool(name: str) -> bool | None:
     raise ValueError(f"Environment variable {name} must be a boolean value, got {value!r}")
 
 
-def _paddleocr_pipeline_kwargs() -> dict[str, Any]:
+def _wants_gpu(device: str | None) -> bool:
+    return bool(device and device.lower().startswith(("gpu", "cuda")))
+
+
+def _normalize_device(device: str | None) -> str | None:
+    if device is None:
+        return None
+    normalized = device.strip().lower()
+    if not normalized:
+        return None
+    if normalized == "cuda":
+        return "gpu:0"
+    if normalized.startswith("cuda:"):
+        return "gpu:" + normalized.split(":", 1)[1]
+    if normalized == "gpu":
+        return "gpu:0"
+    return normalized
+
+
+def _paddle_cuda_status() -> tuple[bool, int]:
+    try:
+        import paddle
+    except ImportError:
+        return False, 0
+
+    compiled_with_cuda = bool(paddle.is_compiled_with_cuda())
+    if not compiled_with_cuda:
+        return False, 0
+    try:
+        return True, int(paddle.device.cuda.device_count())
+    except Exception:
+        return True, 0
+
+
+def default_paddle_device() -> str:
+    explicit = _normalize_device(os.environ.get("PADDLEOCR_DEVICE"))
+    if explicit:
+        return explicit
+    compiled_with_cuda, device_count = _paddle_cuda_status()
+    if compiled_with_cuda and device_count > 0:
+        return "gpu:0"
+    return "cpu"
+
+
+def require_paddle_gpu(device: str | None = None) -> None:
+    target_device = _normalize_device(device) or default_paddle_device()
+    if not _wants_gpu(target_device):
+        raise RuntimeError(
+            f"PaddleOCR device is {target_device!r}, not a GPU device. Set "
+            "PADDLEOCR_DEVICE=gpu:0 or pass --device gpu:0."
+        )
+
+    compiled_with_cuda, device_count = _paddle_cuda_status()
+    if not compiled_with_cuda:
+        raise RuntimeError(
+            "PaddlePaddle is not installed with CUDA support. The current environment "
+            "will run PaddleOCR-VL on CPU only. Install the PaddlePaddle GPU package "
+            "that matches your CUDA driver/toolkit, then verify with: python -c "
+            "\"import paddle; print(paddle.is_compiled_with_cuda())\"."
+        )
+    if device_count < 1:
+        raise RuntimeError(
+            "PaddlePaddle has CUDA support, but no CUDA devices are visible. Check "
+            "nvidia-smi and CUDA_VISIBLE_DEVICES."
+        )
+
+
+def configure_paddle_device(
+    device: str | None = None,
+    *,
+    require_gpu: bool = False,
+) -> str:
+    target_device = _normalize_device(device) or default_paddle_device()
+    if require_gpu:
+        require_paddle_gpu(target_device)
+    try:
+        import paddle
+    except ImportError as exc:
+        raise ImportError(
+            "PaddlePaddle is required for OCR. Install a CPU or GPU PaddlePaddle "
+            "package before running PaddleOCR-VL."
+        ) from exc
+
+    try:
+        paddle.device.set_device(target_device)
+    except Exception as exc:
+        raise RuntimeError(
+            f"Failed to set Paddle device to {target_device!r}. If you want GPU "
+            "inference, install a CUDA-enabled PaddlePaddle package and verify the "
+            "device with nvidia-smi."
+        ) from exc
+    return target_device
+
+
+def _paddleocr_pipeline_kwargs(device: str | None = None) -> dict[str, Any]:
     kwargs: dict[str, Any] = {
-        "pipeline_version": os.environ.get("PADDLEOCR_PIPELINE_VERSION", "v1.6")
+        "pipeline_version": os.environ.get("PADDLEOCR_PIPELINE_VERSION", "v1.6"),
+        "device": _normalize_device(device) or default_paddle_device(),
     }
     for env_name, option_name in _PADDLEOCR_ENV_OPTIONS.items():
         value = os.environ.get(env_name)
@@ -118,25 +212,44 @@ def iter_image_paths(folder_path: str | os.PathLike[str]) -> list[Path]:
     )
 
 
-def _create_paddleocr_pipeline() -> Any:
+def _pipeline_cache_key(kwargs: dict[str, Any]) -> tuple[tuple[str, str], ...]:
+    return tuple(sorted((key, repr(value)) for key, value in kwargs.items()))
+
+
+def _create_paddleocr_pipeline(
+    device: str | None = None,
+    *,
+    require_gpu: bool = False,
+) -> Any:
     try:
         from paddleocr import PaddleOCRVL
     except ImportError as exc:
         raise ImportError(
             "PaddleOCR-VL is required for OCR. Install PaddlePaddle and PaddleOCR, "
             "for example: python -m pip install 'paddlepaddle>=3.2.1' "
-            "'paddleocr[doc-parser]>=3.6.0'. GPU users may need the "
-            "CUDA-specific PaddlePaddle package from Paddle's install guide."
+            "'paddleocr[doc-parser]>=3.6.0'. GPU users must install the "
+            "CUDA-specific paddlepaddle-gpu package from Paddle's install guide."
         ) from exc
 
-    return PaddleOCRVL(**_paddleocr_pipeline_kwargs())
+    selected_device = configure_paddle_device(device, require_gpu=require_gpu)
+    return PaddleOCRVL(**_paddleocr_pipeline_kwargs(selected_device))
 
 
-def _get_paddleocr_pipeline() -> Any:
-    global _PADDLEOCR_PIPELINE
-    if _PADDLEOCR_PIPELINE is None:
-        _PADDLEOCR_PIPELINE = _create_paddleocr_pipeline()
-    return _PADDLEOCR_PIPELINE
+def _get_paddleocr_pipeline(
+    device: str | None = None,
+    *,
+    require_gpu: bool = False,
+) -> Any:
+    kwargs = _paddleocr_pipeline_kwargs(device)
+    if require_gpu:
+        require_paddle_gpu(kwargs["device"])
+    key = _pipeline_cache_key(kwargs)
+    if key not in _PADDLEOCR_PIPELINES:
+        _PADDLEOCR_PIPELINES[key] = _create_paddleocr_pipeline(
+            kwargs["device"],
+            require_gpu=require_gpu,
+        )
+    return _PADDLEOCR_PIPELINES[key]
 
 
 def _get_mapping_value(value: Any, key: str) -> Any:
@@ -241,9 +354,11 @@ def _save_paddle_result(output: Any, output_dir: str | os.PathLike[str]) -> None
 def ocr_image(
     path: str | os.PathLike[str],
     *,
+    device: str | None = None,
+    require_gpu: bool = False,
     paddle_output_dir: str | os.PathLike[str] | None = None,
 ) -> str:
-    pipeline = _get_paddleocr_pipeline()
+    pipeline = _get_paddleocr_pipeline(device, require_gpu=require_gpu)
     output = pipeline.predict(str(path))
     if paddle_output_dir is not None:
         _save_paddle_result(output, paddle_output_dir)
@@ -256,6 +371,8 @@ def extract_and_stitch_data(
     min_content_length: int = 1,
     skip_bad_images: bool = True,
     preserve_markdown: bool = False,
+    device: str | None = None,
+    require_gpu: bool = False,
     paddle_output_dir: str | os.PathLike[str] | None = None,
 ) -> list[OCRRecord]:
     grouped_text: dict[str, list[str]] = {}
@@ -268,7 +385,12 @@ def extract_and_stitch_data(
         try:
             raw_output_dir = Path(paddle_output_dir) / group_name if paddle_output_dir else None
             clean_text = normalize(
-                ocr_image(entry, paddle_output_dir=raw_output_dir)
+                ocr_image(
+                    entry,
+                    device=device,
+                    require_gpu=require_gpu,
+                    paddle_output_dir=raw_output_dir,
+                )
             )
         except Exception as exc:
             if not skip_bad_images:

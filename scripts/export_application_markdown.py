@@ -15,6 +15,7 @@ if str(REPO_ROOT) not in sys.path:
 from law_llm.ocr_pipeline import (  # noqa: E402
     OCRRecord,
     _group_name_from_filename,
+    default_paddle_device,
     extract_and_stitch_data,
     iter_image_paths,
     natural_sort_key,
@@ -54,6 +55,19 @@ def parse_args() -> argparse.Namespace:
         "--fail-on-bad-images",
         action="store_true",
         help="Raise OCR errors instead of warning and skipping unreadable images.",
+    )
+    parser.add_argument(
+        "--device",
+        default=None,
+        help=(
+            "PaddleOCR device, for example cpu, gpu, gpu:0, or cuda:0. "
+            "Defaults to PADDLEOCR_DEVICE or auto-selects GPU when CUDA PaddlePaddle is installed."
+        ),
+    )
+    parser.add_argument(
+        "--require-gpu",
+        action="store_true",
+        help="Fail fast unless PaddlePaddle has CUDA support and at least one GPU is visible.",
     )
     parser.add_argument(
         "--preserve-paddle-markdown",
@@ -163,6 +177,8 @@ def export_markdown_files(
     min_content_length: int = 50,
     skip_bad_images: bool = True,
     preserve_paddle_markdown: bool = False,
+    device: str | None = None,
+    require_gpu: bool = False,
     paddle_output_dir: str | Path | None = None,
 ) -> list[Path]:
     input_path = Path(input_dir)
@@ -173,6 +189,8 @@ def export_markdown_files(
         min_content_length=min_content_length,
         skip_bad_images=skip_bad_images,
         preserve_markdown=preserve_paddle_markdown,
+        device=device,
+        require_gpu=require_gpu,
         paddle_output_dir=paddle_output_dir,
     )
     if not records:
@@ -216,10 +234,13 @@ def main() -> None:
         min_content_length=args.min_content_length,
         skip_bad_images=not args.fail_on_bad_images,
         preserve_paddle_markdown=args.preserve_paddle_markdown,
+        device=args.device,
+        require_gpu=args.require_gpu,
         paddle_output_dir=args.paddle_output_dir,
     )
 
     print(f"Input directory: {input_dir.resolve()}")
+    print(f"PaddleOCR device: {args.device or default_paddle_device()}")
     print(f"Images processed: {image_count}")
     print(f"Markdown files written: {len(written)}")
     print(f"Output directory: {output_dir.resolve()}")

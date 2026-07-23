@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import sys
 from types import SimpleNamespace
 
 import pytest
@@ -65,6 +66,57 @@ def test_paddleocr_pipeline_kwargs_reads_supported_environment(monkeypatch) -> N
         "format_block_content": False,
         "vl_rec_max_concurrency": 4,
     }
+
+
+def test_default_paddle_device_uses_gpu_when_cuda_is_available(monkeypatch) -> None:
+    monkeypatch.delenv("PADDLEOCR_DEVICE", raising=False)
+    monkeypatch.setattr(ocr_pipeline, "_paddle_cuda_status", lambda: (True, 1))
+
+    assert ocr_pipeline.default_paddle_device() == "gpu:0"
+
+
+def test_default_paddle_device_uses_env_override(monkeypatch) -> None:
+    monkeypatch.setenv("PADDLEOCR_DEVICE", "cuda:0")
+
+    assert ocr_pipeline.default_paddle_device() == "gpu:0"
+
+
+def test_require_paddle_gpu_rejects_cpu_only_install(monkeypatch) -> None:
+    monkeypatch.setattr(ocr_pipeline, "_paddle_cuda_status", lambda: (False, 0))
+
+    with pytest.raises(RuntimeError, match="not installed with CUDA support"):
+        ocr_pipeline.require_paddle_gpu("gpu:0")
+
+
+def test_create_paddleocr_pipeline_passes_device_and_uses_cache(monkeypatch) -> None:
+    calls = []
+
+    class FakePaddleOCRVL:
+        def __init__(self, **kwargs):
+            calls.append(kwargs)
+
+    fake_paddleocr = SimpleNamespace(PaddleOCRVL=FakePaddleOCRVL)
+    fake_paddle = SimpleNamespace(
+        is_compiled_with_cuda=lambda: True,
+        device=SimpleNamespace(
+            cuda=SimpleNamespace(device_count=lambda: 1),
+            set_device=lambda device: calls.append({"set_device": device}),
+        ),
+    )
+    monkeypatch.setitem(sys.modules, "paddleocr", fake_paddleocr)
+    monkeypatch.setitem(sys.modules, "paddle", fake_paddle)
+    monkeypatch.setattr(ocr_pipeline, "_PADDLEOCR_PIPELINES", {})
+
+    first = ocr_pipeline._get_paddleocr_pipeline("gpu:0", require_gpu=True)
+    second = ocr_pipeline._get_paddleocr_pipeline("gpu:0", require_gpu=True)
+    cpu = ocr_pipeline._get_paddleocr_pipeline("cpu")
+
+    assert first is second
+    assert cpu is not first
+    assert {"set_device": "gpu:0"} in calls
+    assert {"set_device": "cpu"} in calls
+    assert {"pipeline_version": "v1.6", "device": "gpu:0"} in calls
+    assert {"pipeline_version": "v1.6", "device": "cpu"} in calls
 
 
 def test_save_paddle_result_uses_official_result_methods(tmp_path) -> None:

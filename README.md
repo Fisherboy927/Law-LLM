@@ -32,15 +32,37 @@ python -m pip install --upgrade pip
 python -m pip install -r requirements-dev.txt
 ```
 
-`requirements.txt` installs the data-stage dependencies:
+`requirements-dev.txt` installs the CPU PaddlePaddle package through `requirements-cpu.txt`.
+
+For GPU OCR, use the GPU dev requirements instead of `requirements-dev.txt`. For CUDA 12.6-compatible environments:
+
+```bash
+python -m pip uninstall -y paddlepaddle paddlepaddle-gpu
+python -m pip install -r requirements-dev-gpu-cu126.txt
+```
+
+Verify that Paddle sees CUDA:
+
+```bash
+python -c "import paddle; print(paddle.__version__); print(paddle.is_compiled_with_cuda()); print(paddle.device.cuda.device_count())"
+```
+
+Expected GPU-capable output includes `True` for `is_compiled_with_cuda()` and at least `1` CUDA device. If your CUDA runtime differs from CUDA 12.6, use PaddlePaddle's official install selector and update the package index URL accordingly.
+
+`requirements.txt` installs the shared data-stage dependencies:
 
 - PaddleOCR-VL through `paddleocr[doc-parser]`
-- PaddlePaddle
 - OpenAI SDK
 - `tqdm`
 - `pandas` for compatibility with existing OCR record helpers
 
-GPU users may need to install the PaddlePaddle package that matches their CUDA version before installing the rest of the requirements. Follow the official PaddlePaddle/PaddleOCR installation guide if the default CPU wheel is not appropriate for your machine.
+PaddlePaddle itself is selected by the environment-specific files:
+
+- `requirements-cpu.txt` — CPU `paddlepaddle`
+- `requirements-gpu-cu126.txt` — CUDA 12.6 `paddlepaddle-gpu`
+- `requirements-dev.txt` / `requirements-dev-gpu-cu126.txt` — development/test variants
+
+GPU users must replace the default CPU `paddlepaddle` package with the CUDA-specific `paddlepaddle-gpu` wheel that matches their machine. Follow the official PaddlePaddle/PaddleOCR installation guide if `requirements-gpu-cu126.txt` is not appropriate for your CUDA runtime.
 
 ## 1. Export application-answer Markdown
 
@@ -55,6 +77,35 @@ python scripts/export_application_markdown.py \
   --output-dir outputs/application_answers_markdown \
   --expected-count 50 \
   --min-content-length 50
+```
+
+The script auto-selects `gpu:0` when a CUDA-enabled PaddlePaddle install is available; otherwise it uses CPU. To force GPU and fail fast if the environment is still CPU-only:
+
+```bash
+python scripts/export_application_markdown.py \
+  --input-dir Images \
+  --output-dir outputs/application_answers_markdown \
+  --expected-count 50 \
+  --min-content-length 50 \
+  --device gpu:0 \
+  --require-gpu
+```
+
+You can also use the environment variable form:
+
+```bash
+PADDLEOCR_DEVICE=gpu:0 python scripts/export_application_markdown.py \
+  --input-dir Images \
+  --output-dir outputs/application_answers_markdown \
+  --expected-count 50 \
+  --min-content-length 50 \
+  --require-gpu
+```
+
+Watch GPU usage in another terminal with:
+
+```bash
+watch -n 1 nvidia-smi
 ```
 
 To keep PaddleOCR-VL's Markdown structure and save the raw PaddleOCR JSON/Markdown `Result` outputs next to the stitched answer Markdown, run:
@@ -115,7 +166,7 @@ Useful environment variables:
 - `OPENAI_API_KEY` — required for JSONL augmentation.
 - `OPENAI_MODEL` — optional; defaults to `gpt-4o-mini`.
 - `PADDLEOCR_PIPELINE_VERSION` — optional; defaults to `v1.6`.
-- `PADDLEOCR_DEVICE` — optional PaddleOCR-VL device, for example `cpu` or `gpu:0`.
+- `PADDLEOCR_DEVICE` — optional PaddleOCR-VL device, for example `cpu` or `gpu:0`; if unset, the script auto-selects `gpu:0` only when CUDA-enabled PaddlePaddle is installed and a GPU is visible.
 - `PADDLEOCR_ENGINE` — optional PaddleOCR-VL engine, for example `paddle`, `paddle_static`, `paddle_dynamic`, or `transformers`.
 - `PADDLEOCR_LAYOUT_DETECTION_MODEL_DIR` / `PADDLEOCR_VL_REC_MODEL_DIR` — optional local model directories for offline or pinned-model inference.
 - `PADDLEOCR_VL_REC_BACKEND`, `PADDLEOCR_VL_REC_SERVER_URL`, `PADDLEOCR_VL_REC_API_MODEL_NAME`, `PADDLEOCR_VL_REC_MAX_CONCURRENCY` — optional remote VLM-recognition backend settings.
