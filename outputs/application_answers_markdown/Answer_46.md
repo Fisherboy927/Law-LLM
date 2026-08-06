@@ -1,0 +1,9 @@
+# Answer 46
+
+Source images:
+
+- ../../Images/Answer_46_page1.png
+
+## OCR Text
+
+### Please outline why you wish to pursue a career in commercial law? (approx. 300 words max) My interest in commerce stems from my previous work experiences. In accordance with the existing financial difficulties in the retail sector, I witnessed the challenges businesses can face while working at M&S. While working at a take-away, I noticed an increase in competing takeaways opening in the local area. In response, I opened a Facebook account for the business as a cost-efficient method of advertising. The successful outcome this yielded, including less fact-checking calls which allowed me to serve customers faster and improve customer satisfaction, increased my fascination in the competitive yet rewarding nature of business. However, my experience as a volunteer at Citizens Advice, where I spent several months advising my clients, confirmed I would enjoy the advisory role of a commercial lawyer in solving clients' both commercial and legal problems. I also believe a career in commercial law follows aptly from my International Relations degree; I enjoyed engaging with different theories and collating them into persuasive arguments. Similarly, the need to analyse large quantities of information as a commercial lawyer, and draw the most practical conclusion to clients' problems highly appeals to me. Equally, I have a desire to work in a challenging environment. My experience at Citizens Advice offered me an in-depth insight into the high level of responsibility of a lawyer and the challenges lawyers face in their everyday role. It is this continuous opportunity to adapt, learn and grow, both personally and professionally as a commercial lawyer, that has further solidified my interest in commercial law.

@@ -1,0 +1,9 @@
+# Answer 49
+
+Source images:
+
+- ../../Images/Answer_49_page1.png
+
+## OCR Text
+
+### If you were an AG lawyer, recommending the firm to a potential new client - what would you describe as our most unique selling points? (approx. 300 words max) Ranked as a top 10 innovative firm by the Financial Times, I would describe AGs unique selling point as being truly innovative. Here, innovation is not merely the responsibility of a separate firm entity. Instead, all staff are encouraged to focus on innovation and submit ideas through established processes throughout the firm. Through such non-hierarchical approach to innovation, clients can be assured it is their lawyers who are directly involved in contributing new ideas to solve their problems, and not the select few within the firm. This, I believe, is a key differentiator between AGs and rival firms approach to innovation. Furthermore, AG is committed to designing new processes in a strictly client-centric manner. Through the firm's unique consultancy, AG Consulting, the firm works alongside clients' general counsel and in-house legal teams. In doing so, matters that are unique to each client's needs, such as risk-management, spending analytics and corporate governance, are effectively addressed. Therefore, it is evident the use of innovation is well balanced at AG to ensure clients are the central focus whilst services are delivered in a fully tailored manner. It is also evident clients' financial needs is a strong priority at AG. Having invested in improving service delivery processes with the use of legal project management as part of AG's Intelligent Delivery initiative, clients can benefit from the effectively managed services. This allows for an efficient pricing structure by planning the services in advance. With a strong understanding of clients both legal and business needs, AG is more than a law firm.

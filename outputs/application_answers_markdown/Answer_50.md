@@ -1,0 +1,9 @@
+# Answer 50
+
+Source images:
+
+- ../../Images/Answer_50_page1.png
+
+## OCR Text
+
+Do you have any other qualities or experiences that you think we should take into account when considering your application, including any extenuating or mitigating circumstances? (250 words max) Last September, I successfully climbed Mount. Kilimanjaro. In order to overcome the various challenges during the trek, such as long hours of trekking and turbulent weather, mental endurance was crucial. Additionally, as some team members began to struggle with severe altitude sickness, I initiated the distribution of the weight from their bags throughout the team. This ensured their continuation on the trek by easing their climb as well as the achievement of our common goal of completing the trek together. At university, I was appointed as the Press Team Lead for [redacted] Model United Nations Society. I led a group of 15 members in content creation to promote the society and its annual conference, and strategically allocated roles according to members' individual skillset. However, upon realising some members struggled to integrate and participate during group meetings, I frequently organised social events centred around communication and relationship building. This maximised the overall efficiency of the team, resulting in a sold-out conference. Lastly, parallel to Addleshaw Goddard's commitment to supporting the local community, I am also passionate about volunteering. I previously volunteered at a youth-centre that supports young people from disadvantaged backgrounds and helped vulnerable migrant women and children get access to legal justice in Hong Kong. I developed the ability to confidently deal with sensitive issues whilst providing excellent service. Through Addleshaw Goddard's Unlocking Young Potential strategy, I am confident I will have opportunities to work on matters I deeply care about, such as ensuring equality of opportunities to young people.

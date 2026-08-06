@@ -1,0 +1,9 @@
+# Answer 40
+
+Source images:
+
+- ../../Images/Answer_40_page1.png
+
+## OCR Text
+
+## What skills do you think are needed to be a successful solicitor at Stephenson Harwood? (Max 250 words) Based on the firm's 2026 strategy, key skills for success encompass strong interpersonal abilities, innovative thinking, and a deep understanding of commercial dynamics. Firstly, enduring client relationships are a fundamental component of its vision. This commitment is exemplified by its unique yacht practice. Partners Ezio Dal Maso and Neil Noble consistently rank among Spear's best yacht lawyers, showcasing the significance of client connections. An illustrative example is their role in a long-time client's acquisition of a Tankoa motor yacht. Notably, SH's sustained collaborations with Tankoa on two other matters underline its lawyers' people skills, marked by effective communication and a profound grasp of individual client needs. Secondly, SH upholds its independence in a merger-driven legal landscape. To excel here, lawyers must possess entrepreneurial skills that foster firm growth in the face of dynamic market changes and competition. Their active use of tools like Luminance and Solomonic, and contributions to the development of an in-house pricing tool demonstrates the commitment to innovation and staying at the forefront of the evolving legal landscape for enhanced client services. Finally, echoing the 2026 strategy, SH strongly prioritises core sector expansion, underscoring the critical importance of commercial acumen. This necessitates a profound understanding of clients' industries and the broader business landscape. In addition to technical expertise, SH lawyers must also possess strong team-working skills to facilitate industry-centric growth. This involves the creation of collaborative, cross-practice teams, designed not just to market services but to consistently deliver substantial value to clients.

@@ -1,0 +1,9 @@
+# Answer 07
+
+Source images:
+
+- ../../Images/Answer_07_page1.png
+
+## OCR Text
+
+In no more than 250 words, tell us how the skills and attributes you have developed to date will help you excel as a Clifford Chance lawyer. Keeping up with tight deadlines, working resiliently under pressure, and collaborating are vital skills essential to thrive as a Clifford Chance lawyer. I have developed these skills through my volunteer role at the Queen Mary Legal Advice Centre. As a student advisor, I worked on criminal, employment and company law-related cases. I interviewed clients to corroborate case details and drafted succinct advice letters outlining the client's legal rights. In addition, I provided suggestions to the clients about the most commercially viable option that the client could undertake. I built good working relationships with my supervisors, who are practising solicitors, to produce high-quality advice letters. I had to send out the letters within 10 days of the interviews, which meant keeping up with tight deadlines and often working under pressure. Commercial awareness, strong communication skills, and the ability to take ownership of my work will also help me excel as a lawyer at Clifford Chance. As my university's Clyde & Co brand ambassador, I improved these crucial skills. I proactively organised events to promote the firm's opportunities. This meant that I had to maintain a working knowledge of the firm's business and general market trends to competently answer student queries, in turn developing my commercial awareness. Speaking to over 250 students at an event on campus helped me improve my oral communication skills. The firm commended my enthusiasm and commitment to taking ownership of my work. I received a discretionary bonus for my extraordinary efforts in organising in-person events.

@@ -1,0 +1,9 @@
+# Answer 28
+
+Source images:
+
+- ../../Images/Answer_28_page1.png
+
+## OCR Text
+
+## Who are our main competitors and how do we differentiate ourselves from them? (250 words) The legal market is highly competitive, but Trowers & Hamlins (Trowers) differentiate themselves from competing firms through their international presence, diverse client base and innovative projects. In the West Midlands, Trowers are ranked Band 1 by the Legal 500 for their Local Government work. Anthony Collins Solicitors are also ranked in Band 1 for this, as well as Social Housing, for which they are ranked higher than Trowers. However, although Anthony Collins is a well-regarded firm with a strong reputation in the Midlands, Trowers are able to differentiate themselves through their established presence across the UK, meaning they can offer expertise to a broader range of clients. Additionally, Anthony Collins largely focuses on public sector and non-profit clients, whereas Trowers act as a wide range of both public and private sector clients. This also means they have unique insight into both sectors and can therefore offer more comprehensive advice. Bevan Brittan are another competitor of Trowers, with both firms ranked Band 1 nationally in Local Government by Chambers and Partners. The firm is known for working with public sector clients and large institutions, like the NHS. Trowers differentiate themselves through the broader range of services they offer, including in specialist areas like Islamic Finance; this means they can build and maintain stronger, long-term relationships with clients by offering them legal advice in any area they may require. Trowers also distinguish themselves through their international presence, particularly in the Middle East, enabling them to provide clients with cross-jurisdictional support.
