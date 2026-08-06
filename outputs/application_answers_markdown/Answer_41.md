@@ -1,0 +1,9 @@
+# Answer 41
+
+Source images:
+
+- ../../Images/Answer_41_page1.png
+
+## OCR Text
+
+## Describe how you came to the decision to apply to Stephenson Harwood? (Max 250 words) SH's expertise across services interests me. Advising Stanley Capital on acquiring a global pharmacovigilance service provider impressed me greatly, highlighting SH's corporate prowess in catering to multinational conglomerates. My interest in this area stems from a private equity masterclass with Ropes & Gray that delved into the intricacies of creatively using incentives, frontrunning auctions, and working with different teams. Forage experiences in M&A and IP further developed my interest in negotiation, drafting, and due diligence, deepening my understanding of providing commercially sound legal advice across services. Notably, I found striking parallels between these and complex but exciting private matters. Shadowing a Barrister sparked my private law interest. I worked on property demolition matters for individuals and employment issues involving benefit denial in support of unions. The experience was intellectually rewarding as I thoroughly enjoyed the diversity of work and varied clientele which required constantly adapting my knowledge base and communication style. It solidified my eagerness to pursue a versatile career encompassing private and corporate matters, avoiding early pigeonholing. SH offers this range of leading commercial services with unique private practices in art and cultural property. Lastly, as an international student, I find SH's strategic international expansion highly appealing. For instance, establishing an Indian office before regulation changes this year that permit permanent practice for foreign lawyers, SH showcased its commitment to positioning itself strategically in an emerging market. This indicates opportunities at the firm to develop an international mindset early in my career and gain exposure to cross-border work.

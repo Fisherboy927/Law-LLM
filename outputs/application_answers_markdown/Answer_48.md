@@ -1,0 +1,9 @@
+# Answer 48
+
+Source images:
+
+- ../../Images/Answer_48_page1.png
+
+## OCR Text
+
+### Please choose a current legal issue that interests you and describe how it affects/may affect the current legal market? (approx. 300 words max) With the rise of digital technology, most valuable data is now stored digitally. In turn, cybercriminals have increasingly exploited this trend by targeting businesses' digital sources for confidential information and intelligence. According to the SRA report, cybercrime was the most prevalent crime in 2017. Subsequently, this has been a key driver in the increased focus on cybersecurity, the protection of computer systems from being stolen, harmed or being compromised in a cyberattack. As the threat of cybersecurity is ever more imminent, this has, and can further impact the current legal market in various ways. For example, this can pose as a business opportunity for law firms; in case of such breaches happening, businesses will require legal advice. Thus, law firms with a strong sector knowledge of technology and cybersecurity are likely to benefit. However, firms that lack in this specific sector may improve their position within the wider market by strengthening their practices by recruiting specialist lawyers or by investing in internal training. However, as law firms have increasingly adopted legal technology, they have also become vulnerable to such cyberattacks. This can have significant economic impact: compensation for losing client data and reduction in productivity, thus loss of billable hours, can cause high immediate costs. Additionally, a cyberattack on a law firm can create reputational damage, leading to long-term loss of work. Therefore, firms need to ensure they have the appropriate softwares in place to make both client protection and self-preservation at the heart of their businesses.

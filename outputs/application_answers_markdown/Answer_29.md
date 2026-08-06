@@ -1,0 +1,9 @@
+# Answer 29
+
+Source images:
+
+- ../../Images/Answer_29_page1.png
+
+## OCR Text
+
+### Describe a recent commercial news story that interested you and explain how it relates to Trowers & Hamlins. (250 words) Following the new government's promise to build 1.5 million new homes, a proposed development by Persimmon Homes has been challenged by Cambridgeshire County Council for failing to provide sufficient funding for a new school, in accordance with Section 106 planning obligations. I find this story compelling as it demonstrates the many hurdles faced by large-scale housing developments, and the need for comprehensive legal advice at every stage of the process to ensure a project runs smoothly. This story relates to Trowers & Hamlins due to the services they provide, the sectors they work within, and the clients they act for. Trowers are known both for their Affordable Housing and Construction work, and for frequently acting on behalf of local councils, such as recently advising Liverpool City Council on the acquisition of a brownfield site for regeneration. They have also worked with housebuilders and developers like Vistry Group and Lovell Partnerships. It is therefore essential for Trowers to be aware of any issues arising in regeneration or development projects so they can use their expertise across practice areas to provide comprehensive, current advice, whether acting on behalf of a council or housebuilder. Additionally, due to the government's focus on building new homes and repurposing brownfield sites, this is an area continuing to grow significantly, creating opportunities to attract new clients for Trowers, requiring proactivity in monitoring trends and opportunities. For example, their work advising local councils and developers can ensure compliance with Section 106 obligations, enabling projects to move forward efficiently.
