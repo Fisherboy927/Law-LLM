@@ -1,0 +1,1202 @@
+﻿[
+    {
+        "source_id":  "answer_26",
+        "example_type":  "detailed_model_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.352
+    },
+    {
+        "source_id":  "answer_26",
+        "example_type":  "concise_strong_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.4
+    },
+    {
+        "source_id":  "answer_26",
+        "example_type":  "irac_structured_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.366
+    },
+    {
+        "source_id":  "answer_26",
+        "example_type":  "natural_student_style_answer",
+        "quality_score":  8,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.379
+    },
+    {
+        "source_id":  "answer_26",
+        "example_type":  "formal_exam_style_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.453
+    },
+    {
+        "source_id":  "answer_26",
+        "example_type":  "application_heavy_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.372
+    },
+    {
+        "source_id":  "answer_26",
+        "example_type":  "principle_focused_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.339
+    },
+    {
+        "source_id":  "answer_26",
+        "example_type":  "alternative_ordering_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.473
+    },
+    {
+        "source_id":  "answer_26",
+        "example_type":  "paraphrased_question_model_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.379
+    },
+    {
+        "source_id":  "answer_26",
+        "example_type":  "outline_then_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.398
+    },
+    {
+        "source_id":  "answer_27",
+        "example_type":  "detailed_model_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.457
+    },
+    {
+        "source_id":  "answer_27",
+        "example_type":  "concise_strong_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.4
+    },
+    {
+        "source_id":  "answer_27",
+        "example_type":  "irac_structured_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.357
+    },
+    {
+        "source_id":  "answer_27",
+        "example_type":  "natural_student_style_answer",
+        "quality_score":  8,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.396
+    },
+    {
+        "source_id":  "answer_27",
+        "example_type":  "formal_exam_style_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.442
+    },
+    {
+        "source_id":  "answer_27",
+        "example_type":  "application_heavy_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.367
+    },
+    {
+        "source_id":  "answer_27",
+        "example_type":  "principle_focused_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.34
+    },
+    {
+        "source_id":  "answer_27",
+        "example_type":  "alternative_ordering_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.532
+    },
+    {
+        "source_id":  "answer_27",
+        "example_type":  "paraphrased_question_model_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.533
+    },
+    {
+        "source_id":  "answer_27",
+        "example_type":  "outline_then_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.548
+    },
+    {
+        "source_id":  "answer_28",
+        "example_type":  "detailed_model_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.509
+    },
+    {
+        "source_id":  "answer_28",
+        "example_type":  "concise_strong_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.43
+    },
+    {
+        "source_id":  "answer_28",
+        "example_type":  "irac_structured_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.424
+    },
+    {
+        "source_id":  "answer_28",
+        "example_type":  "natural_student_style_answer",
+        "quality_score":  8,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.444
+    },
+    {
+        "source_id":  "answer_28",
+        "example_type":  "formal_exam_style_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.627
+    },
+    {
+        "source_id":  "answer_28",
+        "example_type":  "application_heavy_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.399
+    },
+    {
+        "source_id":  "answer_28",
+        "example_type":  "principle_focused_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.392
+    },
+    {
+        "source_id":  "answer_28",
+        "example_type":  "alternative_ordering_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.485
+    },
+    {
+        "source_id":  "answer_28",
+        "example_type":  "paraphrased_question_model_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.474
+    },
+    {
+        "source_id":  "answer_28",
+        "example_type":  "outline_then_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.542
+    },
+    {
+        "source_id":  "answer_29",
+        "example_type":  "detailed_model_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.304
+    },
+    {
+        "source_id":  "answer_29",
+        "example_type":  "concise_strong_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.31
+    },
+    {
+        "source_id":  "answer_29",
+        "example_type":  "irac_structured_answer",
+        "quality_score":  8,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.259
+    },
+    {
+        "source_id":  "answer_29",
+        "example_type":  "natural_student_style_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.295
+    },
+    {
+        "source_id":  "answer_29",
+        "example_type":  "formal_exam_style_answer",
+        "quality_score":  8,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.303
+    },
+    {
+        "source_id":  "answer_29",
+        "example_type":  "application_heavy_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.257
+    },
+    {
+        "source_id":  "answer_29",
+        "example_type":  "principle_focused_answer",
+        "quality_score":  8,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.26
+    },
+    {
+        "source_id":  "answer_29",
+        "example_type":  "alternative_ordering_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.293
+    },
+    {
+        "source_id":  "answer_29",
+        "example_type":  "paraphrased_question_model_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.297
+    },
+    {
+        "source_id":  "answer_29",
+        "example_type":  "outline_then_answer",
+        "quality_score":  8,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.305
+    },
+    {
+        "source_id":  "answer_30",
+        "example_type":  "detailed_model_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.312
+    },
+    {
+        "source_id":  "answer_30",
+        "example_type":  "concise_strong_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.342
+    },
+    {
+        "source_id":  "answer_30",
+        "example_type":  "irac_structured_answer",
+        "quality_score":  8,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.297
+    },
+    {
+        "source_id":  "answer_30",
+        "example_type":  "natural_student_style_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.246
+    },
+    {
+        "source_id":  "answer_30",
+        "example_type":  "formal_exam_style_answer",
+        "quality_score":  8,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.332
+    },
+    {
+        "source_id":  "answer_30",
+        "example_type":  "application_heavy_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.296
+    },
+    {
+        "source_id":  "answer_30",
+        "example_type":  "principle_focused_answer",
+        "quality_score":  8,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.336
+    },
+    {
+        "source_id":  "answer_30",
+        "example_type":  "alternative_ordering_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.403
+    },
+    {
+        "source_id":  "answer_30",
+        "example_type":  "paraphrased_question_model_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.364
+    },
+    {
+        "source_id":  "answer_30",
+        "example_type":  "outline_then_answer",
+        "quality_score":  8,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.438
+    },
+    {
+        "source_id":  "answer_31",
+        "example_type":  "detailed_model_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.431
+    },
+    {
+        "source_id":  "answer_31",
+        "example_type":  "concise_strong_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.368
+    },
+    {
+        "source_id":  "answer_31",
+        "example_type":  "irac_structured_answer",
+        "quality_score":  8,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.297
+    },
+    {
+        "source_id":  "answer_31",
+        "example_type":  "natural_student_style_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.304
+    },
+    {
+        "source_id":  "answer_31",
+        "example_type":  "formal_exam_style_answer",
+        "quality_score":  8,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.43
+    },
+    {
+        "source_id":  "answer_31",
+        "example_type":  "application_heavy_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.297
+    },
+    {
+        "source_id":  "answer_31",
+        "example_type":  "principle_focused_answer",
+        "quality_score":  8,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.326
+    },
+    {
+        "source_id":  "answer_31",
+        "example_type":  "alternative_ordering_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.402
+    },
+    {
+        "source_id":  "answer_31",
+        "example_type":  "paraphrased_question_model_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.397
+    },
+    {
+        "source_id":  "answer_31",
+        "example_type":  "outline_then_answer",
+        "quality_score":  8,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.398
+    },
+    {
+        "source_id":  "answer_32",
+        "example_type":  "detailed_model_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.36
+    },
+    {
+        "source_id":  "answer_32",
+        "example_type":  "concise_strong_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.329
+    },
+    {
+        "source_id":  "answer_32",
+        "example_type":  "irac_structured_answer",
+        "quality_score":  8,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.327
+    },
+    {
+        "source_id":  "answer_32",
+        "example_type":  "natural_student_style_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.359
+    },
+    {
+        "source_id":  "answer_32",
+        "example_type":  "formal_exam_style_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.361
+    },
+    {
+        "source_id":  "answer_32",
+        "example_type":  "application_heavy_answer",
+        "quality_score":  8,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.291
+    },
+    {
+        "source_id":  "answer_32",
+        "example_type":  "principle_focused_answer",
+        "quality_score":  8,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.311
+    },
+    {
+        "source_id":  "answer_32",
+        "example_type":  "alternative_ordering_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.424
+    },
+    {
+        "source_id":  "answer_32",
+        "example_type":  "paraphrased_question_model_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.373
+    },
+    {
+        "source_id":  "answer_32",
+        "example_type":  "outline_then_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.373
+    },
+    {
+        "source_id":  "answer_33",
+        "example_type":  "detailed_model_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.413
+    },
+    {
+        "source_id":  "answer_33",
+        "example_type":  "concise_strong_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.36
+    },
+    {
+        "source_id":  "answer_33",
+        "example_type":  "irac_structured_answer",
+        "quality_score":  8,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.356
+    },
+    {
+        "source_id":  "answer_33",
+        "example_type":  "natural_student_style_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.372
+    },
+    {
+        "source_id":  "answer_33",
+        "example_type":  "formal_exam_style_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.417
+    },
+    {
+        "source_id":  "answer_33",
+        "example_type":  "application_heavy_answer",
+        "quality_score":  8,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.331
+    },
+    {
+        "source_id":  "answer_33",
+        "example_type":  "principle_focused_answer",
+        "quality_score":  8,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.289
+    },
+    {
+        "source_id":  "answer_33",
+        "example_type":  "alternative_ordering_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.43
+    },
+    {
+        "source_id":  "answer_33",
+        "example_type":  "paraphrased_question_model_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.383
+    },
+    {
+        "source_id":  "answer_33",
+        "example_type":  "outline_then_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.353
+    },
+    {
+        "source_id":  "answer_34",
+        "example_type":  "detailed_model_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.593
+    },
+    {
+        "source_id":  "answer_34",
+        "example_type":  "concise_strong_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.405
+    },
+    {
+        "source_id":  "answer_34",
+        "example_type":  "irac_structured_answer",
+        "quality_score":  8,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.358
+    },
+    {
+        "source_id":  "answer_34",
+        "example_type":  "natural_student_style_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.498
+    },
+    {
+        "source_id":  "answer_34",
+        "example_type":  "formal_exam_style_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.438
+    },
+    {
+        "source_id":  "answer_34",
+        "example_type":  "application_heavy_answer",
+        "quality_score":  8,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.36
+    },
+    {
+        "source_id":  "answer_34",
+        "example_type":  "principle_focused_answer",
+        "quality_score":  8,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.414
+    },
+    {
+        "source_id":  "answer_34",
+        "example_type":  "alternative_ordering_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.576
+    },
+    {
+        "source_id":  "answer_34",
+        "example_type":  "paraphrased_question_model_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.419
+    },
+    {
+        "source_id":  "answer_34",
+        "example_type":  "outline_then_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.378
+    },
+    {
+        "source_id":  "answer_35",
+        "example_type":  "detailed_model_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.394
+    },
+    {
+        "source_id":  "answer_35",
+        "example_type":  "concise_strong_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.386
+    },
+    {
+        "source_id":  "answer_35",
+        "example_type":  "irac_structured_answer",
+        "quality_score":  8,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.414
+    },
+    {
+        "source_id":  "answer_35",
+        "example_type":  "natural_student_style_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.386
+    },
+    {
+        "source_id":  "answer_35",
+        "example_type":  "formal_exam_style_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.475
+    },
+    {
+        "source_id":  "answer_35",
+        "example_type":  "application_heavy_answer",
+        "quality_score":  8,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.401
+    },
+    {
+        "source_id":  "answer_35",
+        "example_type":  "principle_focused_answer",
+        "quality_score":  8,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.378
+    },
+    {
+        "source_id":  "answer_35",
+        "example_type":  "alternative_ordering_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.425
+    },
+    {
+        "source_id":  "answer_35",
+        "example_type":  "paraphrased_question_model_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.411
+    },
+    {
+        "source_id":  "answer_35",
+        "example_type":  "outline_then_answer",
+        "quality_score":  8,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.411
+    },
+    {
+        "source_id":  "answer_36",
+        "example_type":  "detailed_model_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.544
+    },
+    {
+        "source_id":  "answer_36",
+        "example_type":  "concise_strong_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.371
+    },
+    {
+        "source_id":  "answer_36",
+        "example_type":  "irac_structured_answer",
+        "quality_score":  8,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.413
+    },
+    {
+        "source_id":  "answer_36",
+        "example_type":  "natural_student_style_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.377
+    },
+    {
+        "source_id":  "answer_36",
+        "example_type":  "formal_exam_style_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.638
+    },
+    {
+        "source_id":  "answer_36",
+        "example_type":  "application_heavy_answer",
+        "quality_score":  8,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.358
+    },
+    {
+        "source_id":  "answer_36",
+        "example_type":  "principle_focused_answer",
+        "quality_score":  8,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.4
+    },
+    {
+        "source_id":  "answer_36",
+        "example_type":  "alternative_ordering_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.471
+    },
+    {
+        "source_id":  "answer_36",
+        "example_type":  "paraphrased_question_model_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.58
+    },
+    {
+        "source_id":  "answer_36",
+        "example_type":  "outline_then_answer",
+        "quality_score":  8,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.507
+    },
+    {
+        "source_id":  "answer_37",
+        "example_type":  "detailed_model_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.547
+    },
+    {
+        "source_id":  "answer_37",
+        "example_type":  "concise_strong_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.372
+    },
+    {
+        "source_id":  "answer_37",
+        "example_type":  "irac_structured_answer",
+        "quality_score":  8,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.456
+    },
+    {
+        "source_id":  "answer_37",
+        "example_type":  "natural_student_style_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.45
+    },
+    {
+        "source_id":  "answer_37",
+        "example_type":  "formal_exam_style_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.65
+    },
+    {
+        "source_id":  "answer_37",
+        "example_type":  "application_heavy_answer",
+        "quality_score":  8,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.433
+    },
+    {
+        "source_id":  "answer_37",
+        "example_type":  "principle_focused_answer",
+        "quality_score":  8,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.464
+    },
+    {
+        "source_id":  "answer_37",
+        "example_type":  "alternative_ordering_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.629
+    },
+    {
+        "source_id":  "answer_37",
+        "example_type":  "paraphrased_question_model_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.387
+    },
+    {
+        "source_id":  "answer_37",
+        "example_type":  "outline_then_answer",
+        "quality_score":  8,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.466
+    },
+    {
+        "source_id":  "answer_38",
+        "example_type":  "detailed_model_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.369
+    },
+    {
+        "source_id":  "answer_38",
+        "example_type":  "concise_strong_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.332
+    },
+    {
+        "source_id":  "answer_38",
+        "example_type":  "irac_structured_answer",
+        "quality_score":  8,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.307
+    },
+    {
+        "source_id":  "answer_38",
+        "example_type":  "natural_student_style_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.363
+    },
+    {
+        "source_id":  "answer_38",
+        "example_type":  "formal_exam_style_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.382
+    },
+    {
+        "source_id":  "answer_38",
+        "example_type":  "application_heavy_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.328
+    },
+    {
+        "source_id":  "answer_38",
+        "example_type":  "principle_focused_answer",
+        "quality_score":  8,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.317
+    },
+    {
+        "source_id":  "answer_38",
+        "example_type":  "alternative_ordering_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.421
+    },
+    {
+        "source_id":  "answer_38",
+        "example_type":  "paraphrased_question_model_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.394
+    },
+    {
+        "source_id":  "answer_38",
+        "example_type":  "outline_then_answer",
+        "quality_score":  8,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.419
+    },
+    {
+        "source_id":  "answer_39",
+        "example_type":  "detailed_model_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.436
+    },
+    {
+        "source_id":  "answer_39",
+        "example_type":  "concise_strong_answer",
+        "quality_score":  8,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.403
+    },
+    {
+        "source_id":  "answer_39",
+        "example_type":  "irac_structured_answer",
+        "quality_score":  8,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.357
+    },
+    {
+        "source_id":  "answer_39",
+        "example_type":  "natural_student_style_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.462
+    },
+    {
+        "source_id":  "answer_39",
+        "example_type":  "formal_exam_style_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.376
+    },
+    {
+        "source_id":  "answer_39",
+        "example_type":  "application_heavy_answer",
+        "quality_score":  8,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.334
+    },
+    {
+        "source_id":  "answer_39",
+        "example_type":  "principle_focused_answer",
+        "quality_score":  8,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.347
+    },
+    {
+        "source_id":  "answer_39",
+        "example_type":  "alternative_ordering_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.476
+    },
+    {
+        "source_id":  "answer_39",
+        "example_type":  "paraphrased_question_model_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.491
+    },
+    {
+        "source_id":  "answer_39",
+        "example_type":  "outline_then_answer",
+        "quality_score":  8,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.4
+    },
+    {
+        "source_id":  "answer_40",
+        "example_type":  "detailed_model_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.357
+    },
+    {
+        "source_id":  "answer_40",
+        "example_type":  "concise_strong_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.369
+    },
+    {
+        "source_id":  "answer_40",
+        "example_type":  "irac_structured_answer",
+        "quality_score":  8,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.277
+    },
+    {
+        "source_id":  "answer_40",
+        "example_type":  "natural_student_style_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.291
+    },
+    {
+        "source_id":  "answer_40",
+        "example_type":  "formal_exam_style_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.443
+    },
+    {
+        "source_id":  "answer_40",
+        "example_type":  "application_heavy_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.304
+    },
+    {
+        "source_id":  "answer_40",
+        "example_type":  "principle_focused_answer",
+        "quality_score":  8,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.308
+    },
+    {
+        "source_id":  "answer_40",
+        "example_type":  "alternative_ordering_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.428
+    },
+    {
+        "source_id":  "answer_40",
+        "example_type":  "paraphrased_question_model_answer",
+        "quality_score":  9,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.343
+    },
+    {
+        "source_id":  "answer_40",
+        "example_type":  "outline_then_answer",
+        "quality_score":  8,
+        "status":  "accepted",
+        "rejection_reason":  null,
+        "similarity_jaccard":  0.398
+    }
+]
