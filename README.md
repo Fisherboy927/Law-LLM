@@ -10,6 +10,7 @@ Images/
   -> one Markdown file per Answer_XX group
   -> OpenAI data augmentation
   -> OpenAI-style messages JSONL
+  -> merged train/validation split
 ```
 
 Local model loading and LoRA fine-tuning are intentionally out of scope for this stage.
@@ -162,6 +163,47 @@ Each JSONL row uses OpenAI-style messages format:
 
 Use `--no-metadata` if the downstream trainer expects each row to contain only `messages`.
 
+## 3. Merge augmentation batches into a training dataset
+
+The batch augmentation runs under `data/augmentation/` produce one
+`synthetic_answers_<range>_validated.jsonl` per range, and the batches do not share an identical
+schema: only `6to20`, `26to40`, and `41to50` recorded `quality_score` and the other validation
+flags. `scripts/build_training_dataset.py` normalises those batches onto one schema, merges them,
+splits them, and converts them into training rows:
+
+```bash
+python scripts/build_training_dataset.py
+```
+
+Defaults read `data/augmentation/` and write to `data/training/`:
+
+- `train.jsonl` / `validation.jsonl` — training rows in the selected format
+- `merged_records.jsonl` — the normalised records before format conversion, for auditing
+- `dataset_report.md` / `dataset_report.json` — coverage, split composition, and dropped rows
+
+The split is **grouped by source answer** by default. Every batch generates about ten variants of
+the same source answer, so splitting individual rows would leak near-duplicates into validation.
+`--split-strategy source` holds out whole `answer_XX` groups instead; `--seed` makes the choice
+reproducible.
+
+Useful flags:
+
+- `--format messages|alpaca` — OpenAI chat rows (default) or `instruction`/`input`/`output` rows.
+- `--split-strategy source|random|none` — grouped split (default), row-level split, or train only.
+- `--val-fraction 0.1` — share held out for validation. `0` skips the split.
+- `--min-quality-score 8` — drop scored records below the threshold.
+- `--drop-missing-score` — also drop records from batches that never stored `quality_score`.
+- `--no-metadata` — write rows without the provenance `metadata` field.
+
+In `messages` format the user turn combines the style directive with the application question:
+
+```json
+{"messages":[{"role":"system","content":"You are a legal application writing assistant..."},{"role":"user","content":"Answer as a detailed high-quality model answer.\n\nQuestion:\nIntroduce us to a topic you know about..."},{"role":"assistant","content":"..."}],"metadata":{"synthetic_id":"Answer_01_01_detailed_model_answer","source_id":"answer_01","example_type":"detailed_model_answer","batch":"first5","quality_score":null,"source_path":"outputs/application_answers_markdown/Answer_01.md"}}
+```
+
+The command fails with a non-zero exit code if a batch contains a duplicate `synthetic_id`, a blank
+required field, a `source_id` without an answer number, or if the quality filters remove every row.
+
 Useful environment variables:
 
 - `OPENAI_API_KEY` — required for JSONL augmentation.
@@ -189,9 +231,16 @@ python -c "import json; from pathlib import Path; rows=[json.loads(l) for l in P
 
 Expected roles are `system` then `assistant` for the first and last message in each row.
 
+Check that the merged split has no source-answer leakage:
+
+```bash
+python -c "import json; from pathlib import Path; load=lambda p:[json.loads(l) for l in Path(p).open(encoding='utf-8') if l.strip()]; tr=load('data/training/train.jsonl'); va=load('data/training/validation.jsonl'); ts={r['metadata']['source_id'] for r in tr}; vs={r['metadata']['source_id'] for r in va}; assert not ts & vs, sorted(ts & vs); print(len(tr), len(va), len(ts), len(vs))"
+```
+
 ## Notebook status
 
 `Law_LLM.ipynb` remains as a legacy Colab/training reference. The maintained local entry points for the current data stage are:
 
 - `scripts/export_application_markdown.py`
 - `scripts/build_messages_jsonl.py`
+- `scripts/build_training_dataset.py`
