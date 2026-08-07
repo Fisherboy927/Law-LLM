@@ -107,6 +107,101 @@ def test_filter_records_rejects_empty_result() -> None:
         builder.filter_records([record], min_quality_score=9)
 
 
+def clean_record(number: int, example_type: str, **overrides):
+    fields = {
+        "quality_score": 9,
+        "same_conclusion": True,
+        "preserves_key_issues": True,
+        "no_new_facts": True,
+        "no_hallucinated_authorities": True,
+        "not_too_similar_to_source": True,
+        "useful_for_lora_training": True,
+    }
+    fields.update(overrides)
+    return make_record(number, example_type, **fields)
+
+
+def test_clean_filter_drops_sources_with_collapsed_instructions() -> None:
+    records = [
+        builder.normalise_record(
+            clean_record(
+                1,
+                kind,
+                instruction="Generic instruction",
+                output=f"Distinct output {kind}",
+            ),
+            batch="b",
+            origin=f"o:{kind}",
+        )
+        for kind in ("a", "b", "c")
+    ]
+    records.append(
+        builder.normalise_record(
+            clean_record(2, "a", instruction="Specific instruction"),
+            batch="b",
+            origin="o:good",
+        )
+    )
+
+    kept, dropped = builder.filter_records(records, clean=True)
+
+    assert [record["source_id"] for record in kept] == ["answer_02"]
+    assert {reason for _, reason in dropped} == {"source_instruction_collapse"}
+
+
+@pytest.mark.parametrize(
+    ("input_text", "reason"),
+    [
+        ('{"question_text": "Why this firm?"}', "serialized_source_in_input"),
+        ("Question: Why this firm?", "duplicated_question_label"),
+        ("Why this firm?\nUse only these facts: facts", "embedded_facts_dump"),
+    ],
+)
+def test_clean_filter_drops_malformed_inputs(input_text: str, reason: str) -> None:
+    record = builder.normalise_record(
+        clean_record(1, "a", input=input_text), batch="b", origin="o:1"
+    )
+
+    with pytest.raises(builder.DatasetBuildError, match="filtered out"):
+        builder.filter_records([record], clean=True)
+
+    record["input"] = "Why this firm?"
+    good = builder.normalise_record(clean_record(2, "a"), batch="b", origin="o:2")
+    kept, dropped = builder.filter_records([record, good], clean=True)
+    assert [item["source_id"] for item in kept] == ["answer_01", "answer_02"]
+    assert dropped == []
+
+    malformed = builder.normalise_record(
+        clean_record(3, "a", input=input_text), batch="b", origin="o:3"
+    )
+    kept, dropped = builder.filter_records([good, malformed], clean=True)
+    assert kept == [good]
+    assert dropped[0][1] == reason
+
+
+def test_clean_filter_requires_validation_flags_and_score() -> None:
+    missing_flag = builder.normalise_record(
+        clean_record(1, "a", no_new_facts=None), batch="b", origin="o:1"
+    )
+    low_score = builder.normalise_record(
+        clean_record(2, "a", quality_score=7), batch="b", origin="o:2"
+    )
+    good = builder.normalise_record(clean_record(3, "a"), batch="b", origin="o:3")
+
+    kept, dropped = builder.filter_records(
+        [missing_flag, low_score, good],
+        clean=True,
+        min_quality_score=8,
+        drop_missing_score=True,
+    )
+
+    assert kept == [good]
+    assert [reason for _, reason in dropped] == [
+        "validation_not_passed:no_new_facts",
+        "quality_score_below_8",
+    ]
+
+
 def test_split_by_source_keeps_variants_of_one_answer_together() -> None:
     records = [
         builder.normalise_record(make_record(number, kind), batch="b", origin=f"o:{number}")
