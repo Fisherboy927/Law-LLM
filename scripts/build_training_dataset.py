@@ -14,6 +14,8 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from law_llm.dataset_builder import (  # noqa: E402
+    DEFAULT_CLEAN_MIN_QUALITY_SCORE,
+    DEFAULT_MIN_INSTRUCTION_DIVERSITY,
     DEFAULT_TRAINING_SYSTEM_PROMPT,
     DEFAULT_VALIDATED_GLOB,
     OUTPUT_FORMATS,
@@ -95,6 +97,24 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
         help="Also drop records from batches that never stored quality_score.",
     )
     parser.add_argument(
+        "--clean",
+        action="store_true",
+        help=(
+            "Apply strict training-data hygiene checks. This requires all validation "
+            "flags, rejects malformed inputs and duplicate outputs, removes sources "
+            "whose variant instructions collapsed, and defaults to quality_score >= 8."
+        ),
+    )
+    parser.add_argument(
+        "--min-instruction-diversity",
+        type=float,
+        default=DEFAULT_MIN_INSTRUCTION_DIVERSITY,
+        help=(
+            "Minimum unique-instruction ratio per source in --clean mode "
+            f"(default: {DEFAULT_MIN_INSTRUCTION_DIVERSITY})."
+        ),
+    )
+    parser.add_argument(
         "--system-prompt",
         default=DEFAULT_TRAINING_SYSTEM_PROMPT,
         help="System message written into every messages-format row.",
@@ -151,6 +171,8 @@ def render_report(report: dict[str, Any]) -> str:
         f"(val_fraction {config['val_fraction']}, seed {config['seed']})",
         f"- Quality filter: min_quality_score={config['min_quality_score']}, "
         f"drop_missing_score={config['drop_missing_score']}",
+        f"- Strict cleaning: {config['clean']} "
+        f"(min_instruction_diversity {config['min_instruction_diversity']})",
         f"- Metadata field: {'omitted' if config['no_metadata'] else 'included'}",
         "",
         "## Overall",
@@ -179,10 +201,18 @@ def render_report(report: dict[str, Any]) -> str:
 def build_training_dataset(args: argparse.Namespace) -> dict[str, Any]:
     batch_files = find_validated_files(args.input_dir, args.pattern)
     records = load_validated_records(batch_files)
+    min_quality_score = args.min_quality_score
+    drop_missing_score = args.drop_missing_score
+    if args.clean:
+        if min_quality_score is None:
+            min_quality_score = DEFAULT_CLEAN_MIN_QUALITY_SCORE
+        drop_missing_score = True
     kept, dropped = filter_records(
         records,
-        min_quality_score=args.min_quality_score,
-        drop_missing_score=args.drop_missing_score,
+        min_quality_score=min_quality_score,
+        drop_missing_score=drop_missing_score,
+        clean=args.clean,
+        min_instruction_diversity=args.min_instruction_diversity,
     )
     train, validation = split_records(
         kept,
@@ -219,8 +249,10 @@ def build_training_dataset(args: argparse.Namespace) -> dict[str, Any]:
             "split_strategy": args.split_strategy,
             "val_fraction": args.val_fraction,
             "seed": args.seed,
-            "min_quality_score": args.min_quality_score,
-            "drop_missing_score": args.drop_missing_score,
+            "min_quality_score": min_quality_score,
+            "drop_missing_score": drop_missing_score,
+            "clean": args.clean,
+            "min_instruction_diversity": args.min_instruction_diversity,
             "no_metadata": args.no_metadata,
         },
         "loaded": len(records),
@@ -255,7 +287,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     output_dir = Path(args.output_dir).resolve()
     print(f"Loaded {report['loaded']} validated records from {len(report['config']['batch_files'])} batches.")
     if report["dropped"]:
-        print(f"Dropped {len(report['dropped'])} records by quality filters.")
+        print(f"Dropped {len(report['dropped'])} records by dataset filters.")
     print(f"Train rows: {written['train']}")
     print(f"Validation rows: {written['validation']}")
     print(f"Merged records: {written['merged']}")

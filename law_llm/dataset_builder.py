@@ -48,6 +48,16 @@ METADATA_FIELDS = (
 )
 OUTPUT_FORMATS = ("messages", "alpaca")
 SPLIT_STRATEGIES = ("source", "random", "none")
+VALIDATION_FLAGS = (
+    "same_conclusion",
+    "preserves_key_issues",
+    "no_new_facts",
+    "no_hallucinated_authorities",
+    "not_too_similar_to_source",
+    "useful_for_lora_training",
+)
+DEFAULT_CLEAN_MIN_QUALITY_SCORE = 8
+DEFAULT_MIN_INSTRUCTION_DIVERSITY = 0.5
 
 _ANSWER_NUMBER = re.compile(r"(\d+)")
 _BATCH_NAME = re.compile(r"synthetic_answers_(.+)_validated")
@@ -141,12 +151,53 @@ def filter_records(
     *,
     min_quality_score: int | None = None,
     drop_missing_score: bool = False,
+    clean: bool = False,
+    min_instruction_diversity: float = DEFAULT_MIN_INSTRUCTION_DIVERSITY,
 ) -> tuple[list[dict[str, Any]], list[tuple[dict[str, Any], str]]]:
-    """Split records into kept and dropped, using the batch-inconsistent quality_score field."""
+    """Split records into kept and dropped using quality and optional hygiene checks."""
+    if not 0.0 <= min_instruction_diversity <= 1.0:
+        raise DatasetBuildError("min_instruction_diversity must be in [0.0, 1.0].")
+
     kept: list[dict[str, Any]] = []
     dropped: list[tuple[dict[str, Any], str]] = []
 
+    collapsed_sources: set[str] = set()
+    if clean:
+        instructions_by_source: dict[str, tuple[int, set[str]]] = {}
+        for record in records:
+            source_id = record["source_id"]
+            count, instructions = instructions_by_source.get(source_id, (0, set()))
+            instructions.add(record["instruction"].casefold())
+            instructions_by_source[source_id] = (count + 1, instructions)
+        collapsed_sources = {
+            source_id
+            for source_id, (count, instructions) in instructions_by_source.items()
+            if count > 1 and len(instructions) / count < min_instruction_diversity
+        }
+
+    seen_outputs_by_source: dict[str, set[str]] = {}
     for record in records:
+        if clean and record["source_id"] in collapsed_sources:
+            dropped.append((record, "source_instruction_collapse"))
+            continue
+
+        if clean:
+            input_text = record["input"].lstrip()
+            if input_text.startswith(("{", "[")):
+                dropped.append((record, "serialized_source_in_input"))
+                continue
+            if input_text.casefold().startswith("question:"):
+                dropped.append((record, "duplicated_question_label"))
+                continue
+            if "use only these facts:" in input_text.casefold():
+                dropped.append((record, "embedded_facts_dump"))
+                continue
+
+            failed_flags = [flag for flag in VALIDATION_FLAGS if record.get(flag) is not True]
+            if failed_flags:
+                dropped.append((record, f"validation_not_passed:{','.join(failed_flags)}"))
+                continue
+
         score = record.get("quality_score")
         if score is None:
             if drop_missing_score:
@@ -155,6 +206,15 @@ def filter_records(
         elif min_quality_score is not None and score < min_quality_score:
             dropped.append((record, f"quality_score_below_{min_quality_score}"))
             continue
+
+        if clean:
+            normalised_output = " ".join(record["output"].split()).casefold()
+            source_outputs = seen_outputs_by_source.setdefault(record["source_id"], set())
+            if normalised_output in source_outputs:
+                dropped.append((record, "duplicate_output_within_source"))
+                continue
+            source_outputs.add(normalised_output)
+
         kept.append(record)
 
     if not kept:
